@@ -43,28 +43,27 @@ export const register = (data) => (dispatch) => {
       msg: "Cadastrando usuário...",
     })
   );
-
   return Http.post("/register", data)
-  .then((res) => {
-    dispatch(changeLoading({ open: false }));
-    if (typeof res !== "undefined") {
-      if (res.data.access_token) {
-        dispatch(
-          changeNotify({
-            open: true,
-            class: "success",
-            msg: "Usuário cadastrado com sucesso",
-          })
-        );
+    .then((res) => {
+      dispatch(changeLoading({ open: false }));
+      if (typeof res !== "undefined") {
+        if (res.data.access_token) {
+          dispatch(
+            changeNotify({
+              open: true,
+              class: "success",
+              msg: "Usuário cadastrado com sucesso",
+            })
+          );
 
-        dispatch(setUserToken(res.data.access_token));
+          dispatch(setUserToken(res.data.access_token));
+        }
       }
-    }
-  })
-  .catch(error => {
-    dispatch(changeLoading({open: false}))
-    if (error.response) {
-      dispatch(errors(error.response.data.error))
-    }
-  })
+    })
+    .catch((error) => {
+      dispatch(changeLoading({ open: false }));
+      if (error.response) {
+        dispatch(errors(error.response.data.errors));
+      }
+    });
 };

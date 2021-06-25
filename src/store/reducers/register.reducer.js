@@ -17,7 +17,7 @@ const registerReducer = (state = initialState, { type, payload }) => {
     case actionTypes.SUCCESS:
       return { ...state, success: payload };
     case actionTypes.ERROR:
-    return { ...state, error: payload };
+      return { ...state, error: payload };
 
     default:
       return state;
